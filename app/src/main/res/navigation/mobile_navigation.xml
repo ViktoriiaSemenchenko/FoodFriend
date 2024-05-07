@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/homePage">
+
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.semenchenko.foodfriend.view.HomePageFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_home_page_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_homePage_to_search"
+            app:destination="@id/search" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shoppingList"
+        android:name="com.semenchenko.foodfriend.view.ShoppingListFragment"
+        android:label="Shopping List"
+        tools:layout="@layout/fragment_shopping_list" />
+
+    <fragment
+        android:id="@+id/account"
+        android:name="com.semenchenko.foodfriend.view.AccountFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.semenchenko.foodfriend.view.RecipeFragment"
+        android:label="RecipeFragment" />
+    <fragment
+        android:id="@+id/search"
+        android:name="com.semenchenko.foodfriend.view.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewRecipe"
+        android:name="com.semenchenko.foodfriend.view.AddNewRecipe"
+        android:label="AddNewRecipe"
+        tools:layout="@layout/fragment_add_new_recipe"/>
+</navigation>

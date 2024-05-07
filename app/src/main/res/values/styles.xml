@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
+        <!-- Колір фону -->
+        <item name="android:background">@android:color/background_light</item>
+        <!-- Колір тексту -->
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <!-- Колір тексту для вибраного елемента -->
+        <item name="android:iconTint">@color/green_500</item>
+        <!-- Колір іконок -->
+    </style>
+
+</resources>

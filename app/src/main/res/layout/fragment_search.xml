@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/search_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:drawableStart="@drawable/search"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/gray_700"
+        android:fontFamily="@font/gilroy_regular"
+        android:gravity="center_vertical"
+        android:hint="Find the perfect dish"
+        android:textColor="@color/gray_400"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/search_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textColor="@color/gray_900"
+        android:textSize="20sp"
+        android:fontFamily="@font/gilroy_regular"
+        app:layout_constraintBottom_toBottomOf="@+id/search_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_dish_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        tools:itemCount="6"
+        tools:listitem="@layout/holder_search" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
