@@ -6,17 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.semenchenko.foodfriend.R
-import com.semenchenko.foodfriend.model.Recipe
-import com.semenchenko.foodfriend.repository.SupabaseManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.semenchenko.foodfriend.model.IngredientForList
 
-class IngredientAdapter(
-    private val recipes: MutableList<Recipe>
-) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
-
-    private val supabaseManager: SupabaseManager = SupabaseManager()
+class AddRecipeIngredientsAdapter(
+    private val ingredients: MutableList<IngredientForList>
+) : RecyclerView.Adapter<AddRecipeIngredientsAdapter.IngredientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val itemView =
@@ -25,15 +19,13 @@ class IngredientAdapter(
     }
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
-        val recipe = recipes[position]
-        holder.amount.text = recipe.amount.toString()
-        holder.unit.text = recipe.unit
-        GlobalScope.launch(Dispatchers.Main) {
-            holder.ingredientName.text = supabaseManager.getIngredientNameById(recipe.ingredientId)
-        }
+        val ingredient = ingredients[position]
+        holder.amount.text = ingredient.amount.toString()
+        holder.unit.text = ingredient.unit
+        holder.ingredientName.text = ingredient.ingredientName
     }
 
-    override fun getItemCount(): Int = recipes.size
+    override fun getItemCount(): Int = ingredients.size
 
     class IngredientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ingredientName: TextView = itemView.findViewById(R.id.ingredient_name)

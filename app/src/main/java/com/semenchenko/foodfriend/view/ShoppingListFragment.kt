@@ -23,31 +23,36 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
                 1,
                 "Spaghetti Carbonara",
                 "spaghetti_carbonara_image",
-                "Classic Italian pasta dish made with eggs, cheese, pancetta, and black pepper."
+                "Classic Italian pasta dish made with eggs, cheese, pancetta, and black pepper.",
+                "hgfd"
             ),
             Dish(
                 2,
                 "Chicken Alfredo",
                 "chicken_alfredo_image",
-                "Creamy pasta dish made with chicken, Parmesan cheese, and Alfredo sauce."
+                "Creamy pasta dish made with chicken, Parmesan cheese, and Alfredo sauce.",
+                "hgfd"
             ),
             Dish(
                 3,
                 "Margherita Pizza",
                 "margherita_pizza_image",
-                "Traditional Italian pizza topped with tomato sauce, mozzarella cheese, and fresh basil."
+                "Traditional Italian pizza topped with tomato sauce, mozzarella cheese, and fresh basil.",
+                "hgfd"
             ),
             Dish(
                 4,
                 "Caesar Salad",
                 "caesar_salad_image",
-                "Salad made with romaine lettuce, croutons, Parmesan cheese, and Caesar dressing."
+                "Salad made with romaine lettuce, croutons, Parmesan cheese, and Caesar dressing.",
+                "hgfd"
             ),
             Dish(
                 5,
                 "Beef Burger",
                 "beef_burger_image",
-                "Juicy beef patty served on a bun with lettuce, tomato, onion, and condiments."
+                "Juicy beef patty served on a bun with lettuce, tomato, onion, and condiments.",
+                "hgfd"
             )
         )
 

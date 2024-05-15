@@ -6,6 +6,8 @@ import com.semenchenko.foodfriend.model.Recipe
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 val supabase = createSupabaseClient(
     supabaseUrl = "https://gslrvaoxsezybkztjuzh.supabase.co",
@@ -30,26 +32,26 @@ class SupabaseManager {
     }
 
 
-    suspend fun getIngredientNameById(id: Int): String {
+    suspend fun getIngredientById(id: Int): Ingredient? {
         try {
             val result: Ingredient = supabase
                 .from("ingredient")
                 .select() {
                     filter { eq("id", id) }
                 }.decodeSingle()
-            println("name: ${result.name}")
-            return result.name
+            println("result: ${result.toString()}")
+            return result
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return ""
+        return null
     }
 
     suspend fun getRecipe(id: Int): MutableList<Recipe> {
         val recipe: MutableList<Recipe> = mutableListOf()
         try {
             val result: List<Recipe> = supabase.from("recipe")
-                .select(){
+                .select() {
                     filter { eq("dish_id", id) }
                 }.decodeList<Recipe>()
             recipe.addAll(result)
@@ -63,7 +65,7 @@ class SupabaseManager {
     suspend fun searchDishesByName(query: String): MutableList<Dish> {
         val result = supabase
             .from("dish")
-            .select(){
+            .select() {
                 filter {
                     ilike("name", "%$query%")
                 }
@@ -72,4 +74,59 @@ class SupabaseManager {
         println("searchDishByName: $result")
         return result.toMutableList()
     }
+
+    suspend fun searchIngredientsByName(query: String): MutableList<Ingredient> {
+        val result = supabase
+            .from("ingredient")
+            .select() {
+                filter {
+                    ilike("name", "%$query%")
+                }
+            }
+            .decodeList<Ingredient>()
+        println("searchDishByName: $result")
+        return result.toMutableList()
+    }
+
+    suspend fun addDish(name: String, description: String, image: String, uuid: String): Dish? {
+        val dish = DishInsert(name, description, image, uuid)
+        try {
+            val result: Dish = supabase.from("dish").insert(dish) {
+                select()
+            }.decodeSingle<Dish>()
+            println("new Dish: ${result.toString()}")
+            return result
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    suspend fun addRecipe(list: MutableList<RecipeInsert>) {
+        try {
+            supabase.from("recipe").insert(list)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }
+
+@Serializable
+data class DishInsert(
+    val name: String,
+    val description: String,
+    val image: String,
+
+    @SerialName("unique_id")
+    val uniqueId: String
+)
+
+@Serializable
+data class RecipeInsert(
+    @SerialName("dish_id")
+    val dishId: Int,
+
+    @SerialName("ingredient_id")
+    val ingredientId: Int,
+    val amount: Float
+)

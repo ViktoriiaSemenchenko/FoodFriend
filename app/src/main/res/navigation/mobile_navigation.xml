@@ -32,19 +32,64 @@
     <fragment
         android:id="@+id/recipeFragment"
         android:name="com.semenchenko.foodfriend.view.RecipeFragment"
-        android:label="RecipeFragment" />
+        tools:layout="@layout/fragment_recipe"
+        android:label="RecipeFragment" >
+        <action
+            android:id="@+id/action_recipeFragment_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
     <fragment
         android:id="@+id/search"
-        android:name="com.semenchenko.foodfriend.view.SearchFragment"
+        android:name="com.semenchenko.foodfriend.view.SearchDishFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search">
+        tools:layout="@layout/fragment_search_dish">
         <action
             android:id="@+id/action_search_to_recipeFragment"
             app:destination="@id/recipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewRecipe"
-        android:name="com.semenchenko.foodfriend.view.AddNewRecipe"
+        android:name="com.semenchenko.foodfriend.view.AddNewRecipeFragment"
         android:label="AddNewRecipe"
-        tools:layout="@layout/fragment_add_new_recipe"/>
+        tools:layout="@layout/fragment_add_new_recipe">
+        <action
+            android:id="@+id/action_addNewRecipe_to_addIngredientToNewRecipe"
+            app:destination="@id/addIngredientToNewRecipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/addIngredientToNewRecipe"
+        android:name="com.semenchenko.foodfriend.view.AddIngredientToNewRecipeFragment"
+        android:label="AddIngredientToNewRecipe"
+        tools:layout="@layout/fragment_add_ingredient">
+        <action
+            android:id="@+id/action_addIngredientToNewRecipe_to_homePage"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_addIngredientToNewRecipe_to_searchIngredient"
+            app:destination="@id/searchIngredient" />
+        <action
+            android:id="@+id/action_addIngredientToNewRecipe_to_addNewRecipe"
+            app:destination="@id/addNewRecipe" />
+        <action
+            android:id="@+id/action_addIngredientToNewRecipe_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchIngredient"
+        android:name="com.semenchenko.foodfriend.view.SearchIngredientFragment"
+        android:label="SearchIngredient"
+        tools:layout="@layout/fragment_search_ingredient">
+        <action
+            android:id="@+id/action_searchIngredient_to_addUnitFragment"
+            app:destination="@id/addUnitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addUnitFragment"
+        android:name="com.semenchenko.foodfriend.view.AddUnitFragment"
+        android:label="fragment_add_unit"
+        tools:layout="@layout/fragment_add_unit" >
+        <action
+            android:id="@+id/action_addUnitFragment_to_addIngredientToNewRecipe"
+            app:destination="@id/addIngredientToNewRecipe" />
+    </fragment>
 </navigation>

@@ -5,13 +5,12 @@
     android:layout_marginBottom="16dp">
 
     <TextView
-        android:id="@+id/search_dish_name"
+        android:id="@+id/search_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fontFamily="@font/gilroy_regular"
         android:gravity="center_vertical"
-        android:text="Dish name"
-        android:contentDescription="Ingridient name"
+        android:text=""
         android:textColor="@color/gray_900"
         android:textSize="20sp" />
 

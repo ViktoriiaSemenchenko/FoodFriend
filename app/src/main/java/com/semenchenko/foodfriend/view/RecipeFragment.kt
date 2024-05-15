@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.semenchenko.foodfriend.MainActivity
 import com.semenchenko.foodfriend.R
-import com.semenchenko.foodfriend.adapter.IngredientAdapter
+import com.semenchenko.foodfriend.adapter.RecipeAdapter
 import com.semenchenko.foodfriend.databinding.FragmentRecipeBinding
 import com.semenchenko.foodfriend.model.Recipe
 import com.semenchenko.foodfriend.repository.SupabaseManager
@@ -29,14 +29,14 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe){
         binding = FragmentRecipeBinding.bind(view)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_recipeFragment_to_homePage)
             (activity as MainActivity).setBottomNavVisibility(true)
         }
 
         (activity as MainActivity).setBottomNavVisibility(false)
 
         binding.roundButton.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_recipeFragment_to_homePage)
             (activity as MainActivity).setBottomNavVisibility(true)
         }
         binding.ingredientsRecycler.apply {
@@ -46,9 +46,9 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe){
 
         GlobalScope.launch(Dispatchers.Main) {
             binding.progressBar.visibility = View.VISIBLE
-            val recipe: MutableList<Recipe> = supabaseManager.getRecipe(recipeViewModel.dish.value!!.id)
+            val recipe: MutableList<Recipe> = supabaseManager.getRecipe(recipeViewModel.dish.value!!.id!!)
             println("recipe list $recipe")
-            binding.ingredientsRecycler.adapter = IngredientAdapter(recipe)
+            binding.ingredientsRecycler.adapter = RecipeAdapter(recipe)
             binding.progressBar.visibility = View.GONE
         }
 

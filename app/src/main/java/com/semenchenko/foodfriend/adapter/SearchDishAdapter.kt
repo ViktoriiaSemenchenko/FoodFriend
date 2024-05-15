@@ -13,16 +13,14 @@ import com.semenchenko.foodfriend.viewmodel.RecipeViewModel
 
 class SearchDishAdapter(
     private val dishes: MutableList<Dish>, private val recipeViewModel: RecipeViewModel,
-    activity: FragmentActivity?
+    val activity: FragmentActivity?
 ) :
     RecyclerView.Adapter<SearchDishAdapter.DishViewHolder>() {
-
-    val activity = activity
 
     inner class DishViewHolder(itemView: View, recipeViewModel: RecipeViewModel,
                                activity: FragmentActivity?) :
         RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.search_dish_name)
+        val name: TextView = itemView.findViewById(R.id.search_name)
 
         init {
             itemView.setOnClickListener {
