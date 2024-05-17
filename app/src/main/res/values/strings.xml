@@ -24,4 +24,13 @@
     <string name="back">Back</string>
     <string name="save">Save</string>
     <string name="food_n_friend">Food\n Friend</string>
+    <string name="recipe_name">Recipe name</string>
+    <string name="_0_minutes">0 minutes</string>
+    <string name="_0_ingredients">0 ingredients</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="portion">portion</string>
+    <string name="save_time_shop_ingredients">Save time, shop ingredients</string>
+    <string name="build_your_shoping_list_with_foodfriend_then_choose_how_you_want_to_get_your_order_from_grocee">Build your shoping list with FoodFriend, then choose how you want to get your order from Grocee.</string>
+    <string name="add_items_to_shoping_list">Add items to shoping list</string>
+    <string name="description">Description</string>
 </resources>
