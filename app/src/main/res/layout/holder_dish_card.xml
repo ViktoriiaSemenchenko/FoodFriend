@@ -13,11 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/image_for_empty" />
+            android:src="@drawable/image_for_empty"
+            tools:ignore="ContentDescription" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp"
@@ -35,7 +36,7 @@
                     android:fontFamily="@font/recoleta_regular"
                     android:textSize="24sp"
                     android:textColor="@color/gray_900"
-                    android:text="Recipe name"
+                    android:text="@string/recipe_name"
                     android:maxLines="1"
                     android:ellipsize="end"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,46 +46,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dish_name">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 minutes"
-                        android:textSize="14sp"
-                        android:textColor="@color/gray_900"/>
+                        android:text="@string/_0_minutes"
+                        android:textColor="@color/gray_900"
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:background="@color/gray_100" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 ingredients"
-                        android:textSize="14sp"
-                        android:textColor="@color/gray_900"/>
+                        android:text="@string/_0_ingredients"
+                        android:textColor="@color/gray_900"
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:background="@color/gray_100" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Difficulty"
-                        android:textSize="14sp"
-                        android:textColor="@color/gray_900"/>
+                        android:text="@string/difficulty"
+                        android:textColor="@color/gray_900"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
                 

@@ -1,5 +1,6 @@
 package com.semenchenko.foodfriend.view
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
@@ -13,16 +14,18 @@ import com.semenchenko.foodfriend.R
 import com.semenchenko.foodfriend.adapter.RecipeAdapter
 import com.semenchenko.foodfriend.databinding.FragmentRecipeBinding
 import com.semenchenko.foodfriend.model.Recipe
+import com.semenchenko.foodfriend.repository.PhotoManager
 import com.semenchenko.foodfriend.repository.SupabaseManager
 import com.semenchenko.foodfriend.viewmodel.RecipeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class RecipeFragment : Fragment(R.layout.fragment_recipe){
+class RecipeFragment : Fragment(R.layout.fragment_recipe) {
     private lateinit var binding: FragmentRecipeBinding
     private val supabaseManager: SupabaseManager = SupabaseManager()
     private val recipeViewModel: RecipeViewModel by activityViewModels()
+    private val photoManager = PhotoManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +49,8 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe){
 
         GlobalScope.launch(Dispatchers.Main) {
             binding.progressBar.visibility = View.VISIBLE
-            val recipe: MutableList<Recipe> = supabaseManager.getRecipe(recipeViewModel.dish.value!!.id!!)
+            val recipe: MutableList<Recipe> =
+                supabaseManager.getRecipe(recipeViewModel.dish.value!!.id!!)
             println("recipe list $recipe")
             binding.ingredientsRecycler.adapter = RecipeAdapter(recipe)
             binding.progressBar.visibility = View.GONE
@@ -54,5 +58,12 @@ class RecipeFragment : Fragment(R.layout.fragment_recipe){
 
         binding.dishName.text = recipeViewModel.dish.value!!.name
         binding.description.text = recipeViewModel.dish.value!!.description
+        binding.imageView.setImageBitmap(recipeViewModel.dish.value!!.image?.let {
+            photoManager.base64ToBitmap(
+                it
+            )
+        } ?: run {
+            BitmapFactory.decodeResource(resources, R.drawable.image_for_empty)
+        })
     }
 }

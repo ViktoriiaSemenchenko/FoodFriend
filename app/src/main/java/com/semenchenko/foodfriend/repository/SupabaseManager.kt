@@ -88,13 +88,13 @@ class SupabaseManager {
         return result.toMutableList()
     }
 
-    suspend fun addDish(name: String, description: String, image: String, uuid: String): Dish? {
+    suspend fun addDish(name: String, description: String, image: String?, uuid: String): Dish? {
         val dish = DishInsert(name, description, image, uuid)
         try {
             val result: Dish = supabase.from("dish").insert(dish) {
                 select()
             }.decodeSingle<Dish>()
-            println("new Dish: ${result.toString()}")
+            println("new Dish: $result")
             return result
         } catch (e: Exception) {
             e.printStackTrace()
@@ -115,7 +115,7 @@ class SupabaseManager {
 data class DishInsert(
     val name: String,
     val description: String,
-    val image: String,
+    val image: String?,
 
     @SerialName("unique_id")
     val uniqueId: String

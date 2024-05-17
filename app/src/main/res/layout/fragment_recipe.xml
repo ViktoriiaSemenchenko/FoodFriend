@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_for_empty" />
+                android:src="@drawable/image_for_empty"
+                tools:ignore="ContentDescription" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -38,7 +39,8 @@
                 android:layout_height="42dp"
                 android:layout_margin="16dp"
                 android:background="@drawable/white_round_shape"
-                android:src="@drawable/arrow_left_alt" />
+                android:src="@drawable/arrow_left_alt"
+                tools:ignore="ContentDescription" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -59,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:fontFamily="@font/recoleta_regular"
-                        android:text="Recipe name"
+                        android:text="@string/recipe_name"
                         android:textColor="@color/gray_900"
                         android:textSize="24sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         android:layout_marginTop="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +82,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0 minutes"
+                            android:text="@string/_0_minutes"
                             android:textColor="@color/gray_900"
                             android:textSize="14sp" />
 
@@ -94,7 +97,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0 ingredients"
+                            android:text="@string/_0_ingredients"
                             android:textColor="@color/gray_900"
                             android:textSize="14sp" />
 
@@ -109,7 +112,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Difficulty"
+                            android:text="@string/difficulty"
                             android:textColor="@color/gray_900"
                             android:textSize="14sp" />
 
@@ -138,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/gilroy_regular"
-                android:text="Ingredients"
+                android:text="@string/ingredients"
                 android:textColor="@color/gray_900"
                 android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -151,6 +154,7 @@
                 android:layout_height="44dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -162,17 +166,17 @@
                     android:fontFamily="@font/gilroy_regular"
                     android:gravity="center_vertical"
                     android:paddingEnd="8dp"
-                    android:text="1"
+                    android:text=""
                     android:textColor="@color/gray_900"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
                     android:fontFamily="@font/gilroy_regular"
                     android:gravity="center_vertical"
-                    android:text="portion"
+                    android:text="@string/portion"
                     android:textColor="@color/gray_900"
                     android:textSize="20sp" />
 
@@ -195,7 +199,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@android:color/transparent"
-                            android:src="@drawable/remove" />
+                            android:src="@drawable/remove"
+                            tools:ignore="ContentDescription" />
 
                         <View
                             android:layout_width="2dp"
@@ -209,7 +214,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@android:color/transparent"
-                            android:src="@drawable/add" />
+                            android:src="@drawable/add"
+                            tools:ignore="ContentDescription" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -241,7 +247,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Save time, shop ingredients"
+                        android:text="@string/save_time_shop_ingredients"
                         android:fontFamily="@font/gilroy_regular"
                         android:textSize="24sp"
                         android:textColor="@color/gray_700"/>
@@ -250,7 +256,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Build your shoping list with FoodFriend, then choose how you want to get your order from Grocee."
+                        android:text="@string/build_your_shoping_list_with_foodfriend_then_choose_how_you_want_to_get_your_order_from_grocee"
                         android:fontFamily="@font/gilroy_regular"
                         android:textSize="18sp"
                         android:textColor="@color/gray_600"/>
@@ -260,11 +266,10 @@
                         android:layout_height="wrap_content"
                         style="?attr/materialButtonOutlinedStyle"
                         app:cornerRadius="25dp"
-                        android:text="Add items to shoping list"
+                        android:text="@string/add_items_to_shoping_list"
                         android:textColor="@color/gray_700"
                         app:strokeColor="@color/gray_700"
-                        android:layout_marginTop="8dp"
-                        />
+                        android:layout_marginTop="8dp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -274,7 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/gilroy_regular"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/gray_900"
                 android:textSize="30sp" />
 
@@ -284,7 +289,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/gilroy_regular"
-                android:text="Lorem ipsum dolor sit amet consectetur. Nulla ultrices non lectus viverra semper euismod. Libero convallis cras volutpat dui mollis dolor turpis laoreet. Mauris pharetra facilisi urna lectus. Et vulputate enim diam arcu praesent leo varius sollicitudin."
+                android:text=""
                 android:textColor="@color/gray_900"
                 android:textSize="20sp" />
         </LinearLayout>

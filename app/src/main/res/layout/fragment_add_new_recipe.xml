@@ -147,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="4dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/background_for_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

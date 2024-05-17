@@ -43,7 +43,10 @@ class AddIngredientToNewRecipeFragment : Fragment(R.layout.fragment_add_ingredie
 
         binding.save.setOnClickListener {
             GlobalScope.launch(Dispatchers.Main) {
+                binding.progressIndicator.visibility = View.VISIBLE
                 recipeViewModel.dish.value = addNewRecipeViewModel.addNewRecipe()
+                binding.progressIndicator.visibility = View.GONE
+                addNewRecipeViewModel.clearData()
                 findNavController().navigate(R.id.action_addIngredientToNewRecipe_to_recipeFragment)
             }
         }

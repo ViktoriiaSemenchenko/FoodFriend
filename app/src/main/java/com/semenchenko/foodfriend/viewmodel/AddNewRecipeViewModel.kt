@@ -19,6 +19,10 @@ class AddNewRecipeViewModel: ViewModel() {
         MutableLiveData()
     }
 
+    val image: MutableLiveData<String?> by lazy {
+        MutableLiveData()
+    }
+
     val ingredientsListForAdapter: MutableLiveData<MutableList<IngredientForList>?> by lazy {
         MutableLiveData()
     }
@@ -29,6 +33,15 @@ class AddNewRecipeViewModel: ViewModel() {
 
     val uniqueId: MutableLiveData<String?> by lazy {
         MutableLiveData()
+    }
+
+    fun clearData(){
+        dishName.value = null
+        dishDescription.value = null
+        image.value = null
+        ingredientsListForRecipe.value = null
+        ingredientsListForAdapter.value = null
+        uniqueId.value = null
     }
     fun addIngredientForAdapter(ingredient: IngredientForList) {
         val currentList = ingredientsListForAdapter.value ?: mutableListOf()
@@ -46,9 +59,10 @@ class AddNewRecipeViewModel: ViewModel() {
         val newDish = supabaseManager.addDish(
             name = dishName.value!!,
             description = dishDescription.value!!,
-            image = "image",
+            image = image.value,
             uniqueId.value!!
         )
+        println("new Dish image: ${newDish?.image}")
         println("new Dish id: ${newDish?.id}")
 
         val recipeList = mutableListOf<RecipeInsert>()

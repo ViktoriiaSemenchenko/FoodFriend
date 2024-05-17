@@ -1,15 +1,23 @@
 package com.semenchenko.foodfriend.view
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.semenchenko.foodfriend.MainActivity
 import com.semenchenko.foodfriend.R
 import com.semenchenko.foodfriend.databinding.FragmentAddNewRecipeBinding
+import com.semenchenko.foodfriend.repository.PhotoManager
 import com.semenchenko.foodfriend.viewmodel.AddNewRecipeViewModel
 import java.util.UUID
 
@@ -17,6 +25,7 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
 
     private lateinit var binding: FragmentAddNewRecipeBinding
     private val addNewRecipeViewModel: AddNewRecipeViewModel by activityViewModels()
+    private lateinit var getContent: ActivityResultLauncher<Intent>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +64,31 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
             findNavController().navigate(R.id.action_addNewRecipe_to_addIngredientToNewRecipe)
         }
 
+        binding.recipePhoto.setOnClickListener {
+            println("recipePhoto clicked")
+            checkPermission(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, fragment = this
+            ) {
+
+                val takePhotoIntent = Intent(Intent.ACTION_PICK)
+                takePhotoIntent.type = "image/*"
+                getContent.launch(takePhotoIntent)
+            }
+        }
+
+        val photoManager = PhotoManager()
+        getContent =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    result.data?.data?.let { uri ->
+                        val photo = photoManager.getBitmapFromUri(uri, requireContext())
+                        binding.recipePhoto.setImageBitmap(photo)
+                        addNewRecipeViewModel.image.value = photoManager.bitmapToBase64(photo)
+                        println("addNewRecipeViewModel.image.value: ${addNewRecipeViewModel.image.value}")
+                    }
+                }
+            }
     }
 
     override fun onPause() {
@@ -67,5 +101,27 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
     override fun onResume() {
         super.onResume()
         println("onResume")
+    }
+
+
+    private fun checkPermission(vararg permissions: String, fragment: Fragment, res: (Boolean) -> (Unit)) {
+        var checkPermission = 0
+        permissions.forEach { permission ->
+            if (ActivityCompat.checkSelfPermission(
+                    fragment.requireContext(),
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    fragment.requireActivity(),
+                    permissions, 1
+                )
+            } else {
+                checkPermission++
+            }
+        }
+        if (permissions.size == checkPermission) {
+            res(true)
+        }
     }
 }
