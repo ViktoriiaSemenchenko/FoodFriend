@@ -22,7 +22,11 @@
         android:id="@+id/shoppingList"
         android:name="com.semenchenko.foodfriend.view.ShoppingListFragment"
         android:label="Shopping List"
-        tools:layout="@layout/fragment_shopping_list" />
+        tools:layout="@layout/fragment_shopping_list" >
+        <action
+            android:id="@+id/action_shoppingList_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/account"
@@ -55,6 +59,9 @@
         <action
             android:id="@+id/action_addNewRecipe_to_addIngredientToNewRecipe"
             app:destination="@id/addIngredientToNewRecipe" />
+        <action
+            android:id="@+id/action_addNewRecipe_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
     <fragment
         android:id="@+id/addIngredientToNewRecipe"

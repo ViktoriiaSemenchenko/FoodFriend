@@ -12,12 +12,11 @@ import java.io.ByteArrayOutputStream
 class PhotoManager {
     fun bitmapToBase64(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
         val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.NO_WRAP)
     }
 
-    // Функція для декодування Base64 строку у Bitmap
     fun base64ToBitmap(base64String: String): Bitmap {
         val decodedBytes: ByteArray = Base64.decode(base64String, Base64.NO_WRAP)
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)

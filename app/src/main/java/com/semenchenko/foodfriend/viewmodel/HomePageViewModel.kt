@@ -10,7 +10,7 @@ class HomePageViewModel : ViewModel() {
 
     private val supabaseManager: SupabaseManager = SupabaseManager()
 
-    suspend fun getDishesFromDB(): MutableList<Dish> {
+    suspend fun getDishesFromDB(): MutableList<Dish>? {
         return withContext(Dispatchers.IO) {
             supabaseManager.getDishes()
         }

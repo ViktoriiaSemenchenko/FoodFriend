@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.semenchenko.foodfriend.R
 import com.semenchenko.foodfriend.adapter.DishAdapter
 import com.semenchenko.foodfriend.databinding.FragmentHomePageBinding
 import com.semenchenko.foodfriend.viewmodel.HomePageViewModel
 import com.semenchenko.foodfriend.viewmodel.RecipeViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomePageFragment : Fragment(R.layout.fragment_home_page) {
@@ -31,21 +31,45 @@ class HomePageFragment : Fragment(R.layout.fragment_home_page) {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            GlobalScope.launch(Dispatchers.Main) {
+            viewLifecycleOwner.lifecycleScope.launch {
                 try {
                     val dishes = homePageViewModel.getDishesFromDB()
-                    binding.dishRecyclerView.adapter = DishAdapter(dishes, recipeViewModel, context, activity)
+                    if (!dishes.isNullOrEmpty()) {
+                        binding.dishRecyclerView.adapter =
+                            DishAdapter(dishes, recipeViewModel, context, activity)
+                        binding.swipeRefreshLayout.isRefreshing = false
+                    } else {
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle("Something happened...")
+                            .setMessage("Server error, check your internet connection and restart application")
+                            .setPositiveButton("OK") { _, _ ->
+                                binding.swipeRefreshLayout.isRefreshing = false
+                            }
+                            .show()
+                    }
                 } finally {
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
+        viewLifecycleOwner.lifecycleScope.launch {
             binding.progressBar.visibility = View.VISIBLE
-            binding.dishRecyclerView.adapter =
-                DishAdapter(homePageViewModel.getDishesFromDB(), recipeViewModel, context, activity)
-            binding.progressBar.visibility = View.GONE
+            homePageViewModel.getDishesFromDB()?.let {
+                binding.dishRecyclerView.adapter =
+                    DishAdapter(it, recipeViewModel, context, activity)
+                binding.progressBar.visibility = View.GONE
+            } ?: run {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Something happened...")
+                    .setMessage("Server error, check your internet connection and restart application")
+                    .setPositiveButton("OK") { _, _ ->
+                        binding.swipeRefreshLayout.isRefreshing = false
+                    }
+                    .show()
+                binding.swipeRefreshLayout.isRefreshing = false
+                binding.progressBar.visibility = View.VISIBLE
+            }
         }
 
         binding.search.setOnClickListener {

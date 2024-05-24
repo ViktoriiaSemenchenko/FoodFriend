@@ -5,9 +5,11 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.semenchenko.foodfriend.MainActivity
 import com.semenchenko.foodfriend.R
 import com.semenchenko.foodfriend.adapter.AddRecipeIngredientsAdapter
@@ -15,8 +17,6 @@ import com.semenchenko.foodfriend.databinding.FragmentAddIngredientBinding
 import com.semenchenko.foodfriend.model.IngredientForList
 import com.semenchenko.foodfriend.viewmodel.AddNewRecipeViewModel
 import com.semenchenko.foodfriend.viewmodel.RecipeViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class AddIngredientToNewRecipeFragment : Fragment(R.layout.fragment_add_ingredient) {
@@ -42,12 +42,21 @@ class AddIngredientToNewRecipeFragment : Fragment(R.layout.fragment_add_ingredie
         }
 
         binding.save.setOnClickListener {
-            GlobalScope.launch(Dispatchers.Main) {
+            viewLifecycleOwner.lifecycleScope.launch {
                 binding.progressIndicator.visibility = View.VISIBLE
-                recipeViewModel.dish.value = addNewRecipeViewModel.addNewRecipe()
-                binding.progressIndicator.visibility = View.GONE
-                addNewRecipeViewModel.clearData()
-                findNavController().navigate(R.id.action_addIngredientToNewRecipe_to_recipeFragment)
+                if(!addNewRecipeViewModel.ingredientsListForRecipe.value.isNullOrEmpty()){
+                    recipeViewModel.dish.value = addNewRecipeViewModel.addNewRecipe(view)
+
+                    addNewRecipeViewModel.clearData()
+                    findNavController().navigate(R.id.action_addIngredientToNewRecipe_to_recipeFragment)
+                } else {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("The ingredient list cannot be empty")
+                        .setPositiveButton("OK") { _, _ ->
+                        }
+                        .show()
+                    binding.progressIndicator.visibility = View.GONE
+                }
             }
         }
 
@@ -68,4 +77,5 @@ class AddIngredientToNewRecipeFragment : Fragment(R.layout.fragment_add_ingredie
         println("ingredients: $ingredients")
         binding.ingredientsRecycler.adapter = ingredients?.let { AddRecipeIngredientsAdapter(it) }
     }
+
 }

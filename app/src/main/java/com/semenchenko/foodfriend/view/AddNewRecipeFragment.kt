@@ -5,27 +5,31 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.semenchenko.foodfriend.MainActivity
 import com.semenchenko.foodfriend.R
 import com.semenchenko.foodfriend.databinding.FragmentAddNewRecipeBinding
 import com.semenchenko.foodfriend.repository.PhotoManager
 import com.semenchenko.foodfriend.viewmodel.AddNewRecipeViewModel
-import java.util.UUID
 
 class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
 
     private lateinit var binding: FragmentAddNewRecipeBinding
     private val addNewRecipeViewModel: AddNewRecipeViewModel by activityViewModels()
     private lateinit var getContent: ActivityResultLauncher<Intent>
+    private val photoManager: PhotoManager = PhotoManager()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,13 +38,32 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
         (activity as MainActivity).setBottomNavVisibility(false)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_addNewRecipe_to_homePage)
             (activity as MainActivity).setBottomNavVisibility(true)
         }
 
         binding.addRecipeCancel.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_addNewRecipe_to_homePage)
             (activity as MainActivity).setBottomNavVisibility(true)
+        }
+
+        val testImageResource: Drawable? =
+            ContextCompat.getDrawable(requireContext(), R.drawable.background_for_photo)
+
+        addNewRecipeViewModel.dishName.observe(viewLifecycleOwner) { dishName ->
+            binding.dishName.setText(dishName)
+        }
+
+        addNewRecipeViewModel.dishDescription.observe(viewLifecycleOwner) { dishDescription ->
+            binding.dishDescription.setText(dishDescription)
+        }
+
+        addNewRecipeViewModel.image.observe(viewLifecycleOwner) { image ->
+            if (image.isNullOrEmpty()) {
+                binding.recipePhoto.setImageDrawable(testImageResource)
+            } else {
+                binding.recipePhoto.setImageBitmap(image.let { photoManager.base64ToBitmap(it) })
+            }
         }
 
         view.viewTreeObserver.addOnGlobalLayoutListener {
@@ -59,9 +82,20 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
         binding.next.setOnClickListener {
             addNewRecipeViewModel.dishName.value = binding.dishName.text.toString()
             addNewRecipeViewModel.dishDescription.value = binding.dishDescription.text.toString()
-            addNewRecipeViewModel.uniqueId.value = UUID.randomUUID().toString()
 
-            findNavController().navigate(R.id.action_addNewRecipe_to_addIngredientToNewRecipe)
+            if (checkRequiredFields(
+                    addNewRecipeViewModel.dishName.value!!,
+                    addNewRecipeViewModel.dishDescription.value!!
+                )
+            ) {
+                findNavController().navigate(R.id.action_addNewRecipe_to_addIngredientToNewRecipe)
+            } else {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Required fields are not filled in or overflow")
+                    .setPositiveButton("OK") { _, _ ->
+                    }
+                    .show()
+            }
         }
 
         binding.recipePhoto.setOnClickListener {
@@ -91,20 +125,11 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
             }
     }
 
-    override fun onPause() {
-        super.onPause()
-        println("onPause")
-        println("addNewRecipeViewModel.dishName.value: ${addNewRecipeViewModel.dishName.value.toString()}")
-        println("addNewRecipeViewModel.dishDescription.value: ${addNewRecipeViewModel.dishDescription.value.toString()}")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        println("onResume")
-    }
-
-
-    private fun checkPermission(vararg permissions: String, fragment: Fragment, res: (Boolean) -> (Unit)) {
+    private fun checkPermission(
+        vararg permissions: String,
+        fragment: Fragment,
+        res: (Boolean) -> (Unit)
+    ) {
         var checkPermission = 0
         permissions.forEach { permission ->
             if (ActivityCompat.checkSelfPermission(
@@ -123,5 +148,12 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
         if (permissions.size == checkPermission) {
             res(true)
         }
+    }
+
+    private fun checkRequiredFields(name: String, description: String): Boolean {
+        if (name != "" && description != "") {
+            return name.length <= 55 && description.length <= 500
+        }
+        return false
     }
 }

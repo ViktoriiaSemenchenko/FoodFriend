@@ -1,5 +1,6 @@
 package com.semenchenko.foodfriend.viewmodel
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semenchenko.foodfriend.model.Dish
@@ -31,9 +32,6 @@ class AddNewRecipeViewModel: ViewModel() {
         MutableLiveData()
     }
 
-    val uniqueId: MutableLiveData<String?> by lazy {
-        MutableLiveData()
-    }
 
     fun clearData(){
         dishName.value = null
@@ -41,7 +39,6 @@ class AddNewRecipeViewModel: ViewModel() {
         image.value = null
         ingredientsListForRecipe.value = null
         ingredientsListForAdapter.value = null
-        uniqueId.value = null
     }
     fun addIngredientForAdapter(ingredient: IngredientForList) {
         val currentList = ingredientsListForAdapter.value ?: mutableListOf()
@@ -55,12 +52,11 @@ class AddNewRecipeViewModel: ViewModel() {
         ingredientsListForRecipe.value = currentList
     }
 
-    suspend fun addNewRecipe(): Dish{
+    suspend fun addNewRecipe(view: View): Dish{
         val newDish = supabaseManager.addDish(
             name = dishName.value!!,
             description = dishDescription.value!!,
-            image = image.value,
-            uniqueId.value!!
+            image = image.value
         )
         println("new Dish image: ${newDish?.image}")
         println("new Dish id: ${newDish?.id}")
@@ -69,10 +65,10 @@ class AddNewRecipeViewModel: ViewModel() {
         newDish!!.id.let {
             for(i in ingredientsListForRecipe.value!!){
                 recipeList.add(RecipeInsert(it!!, i.ingredientId, i.amount))
-                println("recipeList: ${recipeList.toString()}")
+                println("recipeList: $recipeList")
             }
         }
-        supabaseManager.addRecipe(recipeList)
+        supabaseManager.addRecipe(recipeList, view)
         return newDish
     }
 }

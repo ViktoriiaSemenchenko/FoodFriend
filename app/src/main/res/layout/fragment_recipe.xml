@@ -166,6 +166,7 @@
                     android:fontFamily="@font/gilroy_regular"
                     android:gravity="center_vertical"
                     android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
                     android:text=""
                     android:textColor="@color/gray_900"
                     android:textSize="20sp" />
@@ -256,17 +257,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/build_your_shoping_list_with_foodfriend_then_choose_how_you_want_to_get_your_order_from_grocee"
+                        android:text="@string/build_your_shopping_list_with_foodfriend_then_choose_how_you_want_to_get_your_order_from_grocee"
                         android:fontFamily="@font/gilroy_regular"
                         android:textSize="18sp"
                         android:textColor="@color/gray_600"/>
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/add_items_to_shopping_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="?attr/materialButtonOutlinedStyle"
                         app:cornerRadius="25dp"
-                        android:text="@string/add_items_to_shoping_list"
+                        android:text="@string/add_items_to_shopping_list"
                         android:textColor="@color/gray_700"
                         app:strokeColor="@color/gray_700"
                         android:layout_marginTop="8dp" />

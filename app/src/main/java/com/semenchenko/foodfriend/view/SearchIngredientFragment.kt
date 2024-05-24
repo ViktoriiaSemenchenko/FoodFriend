@@ -9,6 +9,7 @@ import androidx.activity.addCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +19,6 @@ import com.semenchenko.foodfriend.adapter.SearchIngredientAdapter
 import com.semenchenko.foodfriend.databinding.FragmentSearchIngredientBinding
 import com.semenchenko.foodfriend.repository.SupabaseManager
 import com.semenchenko.foodfriend.viewmodel.AddUnitViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class SearchIngredientFragment : Fragment(R.layout.fragment_search_ingredient) {
@@ -33,9 +32,9 @@ class SearchIngredientFragment : Fragment(R.layout.fragment_search_ingredient) {
 
     private val searchRunnable = Runnable {
         // Виконується після затримки
-        GlobalScope.launch(Dispatchers.Main) {
-            binding.searchDishRecyclerView.adapter = SearchIngredientAdapter(supabaseManager.searchIngredientsByName(
-                searchQuery), addUnitViewModel, activity)
+        viewLifecycleOwner.lifecycleScope.launch {
+            binding.searchDishRecyclerView.adapter = supabaseManager.searchIngredientsByName(
+                searchQuery)?.let { SearchIngredientAdapter(it, addUnitViewModel, activity) }
         }
     }
 

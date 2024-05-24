@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_for_empty" />
+        android:src="@drawable/image_for_empty"
+        tools:ignore="ContentDescription" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -35,7 +36,7 @@
                 android:fontFamily="@font/recoleta_regular"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="Recipe name"
+                android:text="@string/recipe_name"
                 android:textColor="@color/gray_900"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

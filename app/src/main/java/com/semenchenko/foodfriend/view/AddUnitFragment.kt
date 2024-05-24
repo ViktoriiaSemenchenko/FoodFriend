@@ -6,6 +6,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.semenchenko.foodfriend.MainActivity
 import com.semenchenko.foodfriend.R
 import com.semenchenko.foodfriend.databinding.FragmentAddUnitBinding
@@ -37,28 +38,33 @@ class AddUnitFragment : Fragment(R.layout.fragment_add_unit) {
         }
 
         binding.addIngredient.setOnClickListener {
-            val amount = binding.amount.editableText.toString()
-            println("amount: ${amount.toFloat()}")
+            val amount: String = binding.amount.editableText.toString()
+            if (amount != "") {
+                val ingredientForList = IngredientForList(
+                    addUnitViewModel.ingredientId.value!!.toInt(),
+                    addUnitViewModel.ingredientName.value.toString(),
+                    amount.toFloat(),
+                    addUnitViewModel.unit.value.toString()
+                )
+                println("recipeInsert: $ingredientForList")
 
-            val ingredientForList = IngredientForList(
-                addUnitViewModel.ingredientId.value!!.toInt(),
-                addUnitViewModel.ingredientName.value.toString(),
-                amount.toFloat(),
-                addUnitViewModel.unit.value.toString()
-            )
-            println("recipeInsert: $ingredientForList")
+                val ingredientForRecipe = IngredientForRecipe(
+                    addUnitViewModel.ingredientId.value!!.toInt(),
+                    amount.toFloat()
+                )
+                addNewRecipeViewModel.addIngredientForRecipe(ingredientForRecipe)
+                addNewRecipeViewModel.addIngredientForAdapter(ingredientForList)
+                println("addNewRecipeViewModel.ingredients.value: ${addNewRecipeViewModel.ingredientsListForAdapter.value.toString()}")
+                println("addNewRecipeViewModel.ingredientsListForRecipe.value: ${addNewRecipeViewModel.ingredientsListForRecipe.value.toString()}")
 
-            val ingredientForRecipe = IngredientForRecipe(
-                addUnitViewModel.ingredientId.value!!.toInt(),
-                amount.toFloat()
-            )
-
-            addNewRecipeViewModel.addIngredientForRecipe(ingredientForRecipe)
-            addNewRecipeViewModel.addIngredientForAdapter(ingredientForList)
-            println("addNewRecipeViewModel.ingredients.value: ${addNewRecipeViewModel.ingredientsListForAdapter.value.toString()}")
-            println("addNewRecipeViewModel.ingredientsListForRecipe.value: ${addNewRecipeViewModel.ingredientsListForRecipe.value.toString()}")
-
-            findNavController().navigate(R.id.action_addUnitFragment_to_addIngredientToNewRecipe)
+                findNavController().navigate(R.id.action_addUnitFragment_to_addIngredientToNewRecipe)
+            } else {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Enter the required amount of ingredient")
+                    .setPositiveButton("OK") { _, _ ->
+                    }
+                    .show()
+            }
         }
     }
 }
