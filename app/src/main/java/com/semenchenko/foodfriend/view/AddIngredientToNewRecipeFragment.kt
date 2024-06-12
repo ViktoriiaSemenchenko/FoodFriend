@@ -37,6 +37,7 @@ class AddIngredientToNewRecipeFragment : Fragment(R.layout.fragment_add_ingredie
         }
 
         binding.addRecipeCancel.setOnClickListener {
+            addNewRecipeViewModel.clearData()
             findNavController().navigate(R.id.action_addIngredientToNewRecipe_to_homePage)
             (activity as MainActivity).setBottomNavVisibility(true)
         }

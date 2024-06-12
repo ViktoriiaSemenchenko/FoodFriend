@@ -34,7 +34,8 @@ class SearchDishFragment : Fragment(R.layout.fragment_search_dish) {
         // Виконується після затримки
         viewLifecycleOwner.lifecycleScope.launch {
             binding.searchDishRecyclerView.adapter = supabaseManager.searchDishesByName(
-                searchQuery)?.let { SearchDishAdapter(it, recipeViewModel, activity) }
+                searchQuery
+            )?.let { SearchDishAdapter(it, recipeViewModel, activity) }
         }
     }
 
@@ -65,11 +66,11 @@ class SearchDishFragment : Fragment(R.layout.fragment_search_dish) {
         }
 
         binding.searchView.doAfterTextChanged {
-                handler.removeCallbacks(searchRunnable)
-                if (it.toString().isNotEmpty()){
-                    searchQuery = it?.toString()!!
-                    handler.postDelayed(searchRunnable, delay)
-                }
+            handler.removeCallbacks(searchRunnable)
+            if (it.toString().isNotEmpty()) {
+                searchQuery = it?.toString()!!
+                handler.postDelayed(searchRunnable, delay)
             }
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.semenchenko.foodfriend.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -48,6 +50,13 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
 
+        binding.goToGrocee.setOnClickListener {
+            val url = "https://grocee-website.vercel.app/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+
         if (sharedPreferencesManager.getDishIds().isEmpty()) {
             binding.recipeHeader.visibility = View.INVISIBLE
             binding.ingredients.visibility = View.INVISIBLE
@@ -74,6 +83,8 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
                                 binding.dishSmallRecycler.adapter =
                                     DishSmallAdapter(dishes, context, recipeViewModel, activity)
                                 binding.progressIndicator1.visibility = View.GONE
+                                binding.groceeCardview.visibility = View.VISIBLE
+
                             }
                         }
                     }
@@ -83,6 +94,7 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
                     if (isAdded) {
                         binding.progressIndicator1.visibility = View.GONE
                         binding.progressIndicator2.visibility = View.GONE
+                        binding.groceeCardview.visibility = View.VISIBLE
                     }
                 }
             }

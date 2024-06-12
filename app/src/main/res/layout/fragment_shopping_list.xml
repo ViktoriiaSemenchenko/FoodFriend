@@ -111,53 +111,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ingredients_recycler" />
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:backgroundTint="@color/gray_50"-->
-<!--            app:cardCornerRadius="8dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/ingredients_recycler">-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/grocee_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/gray_50"
+            app:cardCornerRadius="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredients_recycler">
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:padding="16dp">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/gilroy_regular"-->
-<!--                    android:text="@string/save_time_shop_ingredients"-->
-<!--                    android:textColor="@color/gray_700"-->
-<!--                    android:textSize="24sp" />-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_regular"
+                    android:text="@string/save_time_shop_ingredients"
+                    android:textColor="@color/gray_700"
+                    android:textSize="24sp" />
 
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:fontFamily="@font/gilroy_regular"-->
-<!--                    android:text="@string/build_your_shopping_list_with_foodfriend_then_choose_how_you_want_to_get_your_order_from_grocee"-->
-<!--                    android:textColor="@color/gray_600"-->
-<!--                    android:textSize="18sp" />-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/gilroy_regular"
+                    android:text="@string/you_can_easily_choose_all_these_products_at_grocee_and_have_them_delivered"
+                    android:textColor="@color/gray_600"
+                    android:textSize="18sp" />
 
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:id="@+id/add_items_to_shopping_list"-->
-<!--                    style="?attr/materialButtonOutlinedStyle"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:text="@string/add_items_to_shopping_list"-->
-<!--                    android:textColor="@color/gray_700"-->
-<!--                    app:cornerRadius="25dp"-->
-<!--                    app:strokeColor="@color/gray_700" />-->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/go_to_grocee"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/go_to_grocee"
+                    android:textColor="@color/gray_700"
+                    app:cornerRadius="25dp"
+                    app:strokeColor="@color/gray_700" />
 
-<!--            </LinearLayout>-->
-<!--        </androidx.cardview.widget.CardView>-->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -14,46 +14,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/ingredient_name"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/ingredient_name"
-        android:layout_weight="0.9"
-        android:fontFamily="@font/gilroy_regular"
-        android:gravity="center_vertical"
-        android:text="@string/loading"
-        android:textColor="@color/gray_900"
-        android:textSize="20sp"/>
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|center_horizontal"
-        android:orientation="horizontal"
-        android:padding="4dp">
-
         <TextView
-            android:id="@+id/amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/ingredient_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:contentDescription="@string/ingredient_name"
             android:fontFamily="@font/gilroy_regular"
-            android:text="@string/amount_example"
+            android:gravity="center_vertical"
+            android:text="@string/loading"
             android:textColor="@color/gray_900"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/unit"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:fontFamily="@font/gilroy_regular"
-            android:text="@string/unit_example"
-            android:textColor="@color/gray_900"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:layout_gravity="center|center_horizontal"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gilroy_regular"
+                android:text="@string/amount_example"
+                android:textColor="@color/gray_900"
+                android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/unit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/gilroy_regular"
+                android:text="@string/unit_example"
+                android:textColor="@color/gray_900"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

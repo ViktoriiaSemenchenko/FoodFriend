@@ -61,9 +61,9 @@ class HomePageFragment : Fragment(R.layout.fragment_home_page) {
                 binding.progressBar.visibility = View.GONE
             } ?: run {
                 MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Something happened...")
-                    .setMessage("Server error, check your internet connection and restart application")
-                    .setPositiveButton("OK") { _, _ ->
+                    .setTitle(getString(R.string.something_happened))
+                    .setMessage(getString(R.string.server_error_check_your_internet_connection))
+                    .setPositiveButton(getString(R.string.ok)) { _, _ ->
                         binding.swipeRefreshLayout.isRefreshing = false
                     }
                     .show()

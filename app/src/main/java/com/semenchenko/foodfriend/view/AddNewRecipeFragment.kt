@@ -43,6 +43,7 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
         }
 
         binding.addRecipeCancel.setOnClickListener {
+            addNewRecipeViewModel.clearData()
             findNavController().navigate(R.id.action_addNewRecipe_to_homePage)
             (activity as MainActivity).setBottomNavVisibility(true)
         }

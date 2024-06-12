@@ -48,4 +48,9 @@
     <string name="it_is_a_recipe_app_aimed_at_creating_a_convenient_and_efficient_environment_for_meal_planning_and_cooking">It is a recipe app aimed at creating a convenient and efficient environment for meal planning and cooking.</string>
     <string name="developed_by_viktoriia_semenchenko">Developed by Viktoriia Semenchenko</string>
     <string name="about_app">It is a recipe app designed to create a convenient and efficient environment for meal planning and cooking. My goal was to simplify the formation of a shopping list and forget about writing a list with a piece of paper and a pen forever.</string>
+    <string name="something_happened">Something happened…</string>
+    <string name="server_error_check_your_internet_connection">Server error, check your internet connection and restart application</string>
+    <string name="ok">OK</string>
+    <string name="you_can_easily_choose_all_these_products_at_grocee_and_have_them_delivered">You can easily choose all these products at Grocee and have them delivered directly to your door</string>
+    <string name="go_to_grocee">Go to Grocee</string>
 </resources>
