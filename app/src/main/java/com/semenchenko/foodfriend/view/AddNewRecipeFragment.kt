@@ -153,7 +153,7 @@ class AddNewRecipeFragment : Fragment(R.layout.fragment_add_new_recipe) {
 
     private fun checkRequiredFields(name: String, description: String): Boolean {
         if (name != "" && description != "") {
-            return name.length <= 55 && description.length <= 500
+            return name.length <= 55 && description.length <= 2500
         }
         return false
     }

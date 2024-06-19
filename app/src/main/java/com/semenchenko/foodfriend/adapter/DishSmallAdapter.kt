@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.semenchenko.foodfriend.MainActivity
 import com.semenchenko.foodfriend.R
 import com.semenchenko.foodfriend.model.Dish
+import com.semenchenko.foodfriend.repository.PhotoManager
 import com.semenchenko.foodfriend.viewmodel.RecipeViewModel
 
 class DishSmallAdapter(
@@ -24,6 +25,7 @@ class DishSmallAdapter(
 
     private val testImageResource: Drawable? =
         ContextCompat.getDrawable(context!!, R.drawable.image_for_empty)
+    private val photoManager = PhotoManager()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishSmallViewHolder {
@@ -35,7 +37,11 @@ class DishSmallAdapter(
     override fun onBindViewHolder(holder: DishSmallViewHolder, position: Int) {
         val currentItem = dishes[position]
         holder.dishName.text = currentItem.name
-        holder.imageView.setImageDrawable(testImageResource)
+        if (currentItem.image.isNullOrEmpty()) {
+            holder.imageView.setImageDrawable(testImageResource)
+        } else {
+            holder.imageView.setImageBitmap(photoManager.base64ToBitmap(currentItem.image))
+        }
     }
 
     override fun getItemCount() = dishes.size
